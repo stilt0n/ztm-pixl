@@ -9,7 +9,7 @@ func Setup(app *AppInit) {
 	colorPicker := SetupColorPicker(app)
 	// Border has main central container
 	// and then left, top, bottom and right sections
-	// order is top, bottom, left, right, center-content
-	appLayout := container.NewBorder(nil, swatchesContainer, nil, colorPicker)
+	// order is top, bottom, left, right, ...center-content
+	appLayout := container.NewBorder(nil, swatchesContainer, nil, colorPicker, app.PixlCanvas)
 	app.PixlWindow.SetContent(appLayout)
 }

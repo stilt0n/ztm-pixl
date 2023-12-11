@@ -1,6 +1,7 @@
 package ui
 
 import (
+	"pixl/pxcanvas"
 	"pixl/swatch"
 	"pixl/types"
 
@@ -8,6 +9,7 @@ import (
 )
 
 type AppInit struct {
+	PixlCanvas *pxcanvas.PxCanvas
 	PixlWindow fyne.Window
 	State      *types.State
 	Swatches   []*swatch.Swatch
