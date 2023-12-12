@@ -79,7 +79,7 @@ func (pxCanvas *PxCanvas) CreateRenderer() fyne.WidgetRenderer {
 		canvasImage:  canvasImage,
 		canvasBorder: canvasBorder,
 	}
-
+	pxCanvas.renderer = renderer
 	return renderer
 }
 
@@ -115,4 +115,22 @@ func (pxCanvas *PxCanvas) MouseToCanvasXY(event *desktop.MouseEvent) (*int, *int
 	y := int((event.Position.Y - yOffset) / pxSize)
 
 	return &x, &y
+}
+
+func (pxCanvas *PxCanvas) LoadImage(img image.Image) {
+	dimensions := img.Bounds()
+	pxCanvas.PxCanvasConfig.PxCols = dimensions.Dx()
+	pxCanvas.PxCanvasConfig.PxRows = dimensions.Dy()
+
+	pxCanvas.PixelData = img
+	pxCanvas.reloadImage = true
+	pxCanvas.Refresh()
+}
+
+func (pxCanvas *PxCanvas) NewDrawing(cols, rows int) {
+	pxCanvas.appState.SetFilePath("")
+	pxCanvas.PxCols = cols
+	pxCanvas.PxRows = rows
+	pixelData := NewBlankImage(cols, rows, color.NRGBA{128, 128, 128, 255})
+	pxCanvas.LoadImage(pixelData)
 }

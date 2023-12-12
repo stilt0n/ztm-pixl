@@ -17,6 +17,10 @@ func (pxCanvas *PxCanvas) Scrolled(event *fyne.ScrollEvent) {
 func (pxCanvas *PxCanvas) MouseMoved(event *desktop.MouseEvent) {
 	if x, y := pxCanvas.MouseToCanvasXY(event); x != nil && y != nil {
 		brush.TryBrush(pxCanvas.appState, pxCanvas, event)
+		cursor := brush.Cursor(pxCanvas.PxCanvasConfig, pxCanvas.appState.BrushType, event, *x, *y)
+		pxCanvas.renderer.SetCursor(cursor)
+	} else {
+		pxCanvas.renderer.SetCursor(make([]fyne.CanvasObject, 0))
 	}
 	// this will run when scroll wheel is pressed and mouse is moved
 	pxCanvas.TryPan(pxCanvas.mouseState.previousCoord, event)
